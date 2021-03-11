@@ -2,7 +2,7 @@
 (* 1  Recursion and Higher-order Functions *)
 
 (* 1.1 *)
-(* Recursive function pow, which takes two int parameters x and n, and returns x^n. *)
+(* Takes two int parameters x and n, and returns x^n. *)
 (* x = base, n = power *)
 let rec pow x n =
   if n <> 0 then
@@ -10,7 +10,7 @@ let rec pow x n =
   else
     1;;
 
-(* Recursive function float_pow, which takes in two float paramaters, x and n, and returns x^n. *)
+(* Takes two float paramaters, x and n, and returns x^n. *)
 (* x = base, n = power *)
 let rec float_pow x n =
   if n <> 0.0 then
@@ -19,7 +19,7 @@ let rec float_pow x n =
     1.0;;
 
 (* 1.2 *)
-(* Recursive function compress removes consecutive duplicates from a list. *)
+(* Removes consecutive duplicates from a list. *)
 let rec compress lst = 
   match lst with
   | a::(b::_ as t) -> if a = b then compress t
@@ -27,7 +27,7 @@ let rec compress lst =
   | _ -> lst;;
 
 (* 1.3 *)
-(* Recursive function remove_if which takes a list and a predicate and removes all the elements that satisfy the condition expressed in the predicate. *)
+(* Takes a list and a predicate and removes all the elements that satisfy the condition expressed in the predicate. *)
 let rec remove_if lst predicate = 
   match lst with
   | h::t -> if predicate h then remove_if t predicate else
@@ -69,3 +69,12 @@ let goldbachpair evenInt =
     if lowerInt + upperInt = evenInt && (is_prime (upperInt) (upperInt - 1) && is_prime (lowerInt) (lowerInt - 1)) then (lowerInt, upperInt)
     else get_pair (lowerInt - 1) (upperInt + 1)
   in get_pair (evenInt / 2) (evenInt / 2);;
+
+(* 1.7 *)
+(* Takes three inputs: two functions, f and g, and a list. It returns true if and only if the functions have identical behavior
+  on every element of the list. *)
+let rec equiv_on f g lst = 
+   match lst with
+   | [] -> true
+   | h::t -> if f h <> g h then false else equiv_on f g t;;
+   

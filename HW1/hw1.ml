@@ -34,4 +34,25 @@ let rec remove_if lst predicate =
     h::remove_if t predicate
     | _ -> lst;;
 
+(* 1.4 *)
+(* Takes list and two indicies, i and j, and extracts a slice of the list containing the elements from the ith (inclusive)
+to the jth (not inclusive) positions of the original list. *)
+let slice lst i j =
+  if i > j then [] else
+  let rec keep n = function
+    | [] -> []
+    | h::t -> if n = 0 then [] else h::keep (n-1) t
+in 
+let rec remove n = function
+  | [] -> []
+  | h::t as elementsToKeep -> if n = 0 then elementsToKeep else remove (n-1) t 
+in
+keep (j - i) (remove i lst);;
 
+(*
+let rec equivs equivalenceFunc lst = 
+  match lst with 
+  | []::[] -> []::[]
+  | a::(b::_ as t) -> if equivalenceFunc (a) (b) then a::b::trues 
+  else trues:
+  *)

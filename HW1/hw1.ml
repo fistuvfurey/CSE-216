@@ -49,10 +49,23 @@ let rec remove n = function
 in
 keep (j - i) (remove i lst);;
 
-(*
+(* 1.5 *)
+(* Partitions a list into equivalnce classes according to the equivalance functino, equivalenceFunc *)
 let rec equivs equivalenceFunc lst = 
   match lst with 
-  | []::[] -> []::[]
-  | a::(b::_ as t) -> if equivalenceFunc (a) (b) then a::b::trues 
-  else trues:
-  *)
+  | [] -> []
+  | _::[] -> []
+  | a::(b::_ as t) -> if equivalenceFunc a b = true then [a; b]::equivs equivalenceFunc t
+  else [a]::[b]::equivs equivalenceFunc t;;
+
+(* 1.6 *)
+(* Finds two prime numbers that sum up to a given even integer a returns them as a pair in non-decreasing order. *)
+let goldbachpair evenInt = 
+  let rec is_prime numToCheck divisor = 
+    if divisor = 1 then true
+    else if numToCheck mod divisor = 0 then false else is_prime (numToCheck) (divisor - 1)
+  in 
+  let rec get_pair lowerInt upperInt = 
+    if lowerInt + upperInt = evenInt && (is_prime (upperInt) (upperInt - 1) && is_prime (lowerInt) (lowerInt - 1)) then (lowerInt, upperInt)
+    else get_pair (lowerInt - 1) (upperInt + 1)
+  in get_pair (evenInt / 2) (evenInt / 2);;

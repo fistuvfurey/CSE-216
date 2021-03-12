@@ -77,4 +77,16 @@ let rec equiv_on f g lst =
    match lst with
    | [] -> true
    | h::t -> if f h <> g h then false else equiv_on f g t;;
-   
+
+(* 1.8 *)
+(* Takes two parameters: a function cmp that compares two elements of a specific type T and returns one of them and a list of that same type T.
+It returns a list that applies cmp while taking two elements at a time from the list. If the list has odd size, the last element is just returned "as is" *)
+let rec pairwisefilter cmp lst = 
+  match lst with
+  | a::b::(_ as t) -> (cmp a b)::pairwisefilter cmp t
+  | [] -> []
+  | (_ as last)::[] -> [last]
+
+
+  
+

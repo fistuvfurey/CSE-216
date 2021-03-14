@@ -87,6 +87,13 @@ let rec pairwisefilter cmp lst =
   | [] -> []
   | (_ as last)::[] -> [last]
 
+(* 1.9 *)
+(* Takes a list of tuples and returns a polynomial function corresponding to that list. 
+Each tuple in the input list consists of the coefficient and the exponent. *)
 
-  
-
+(* 1.10 *)
+(* Takes a list and returns a list of lists that represnts the powerset of the input list. *)
+let rec powerset lst = 
+  match lst with
+  | [] -> lst::[] (* once the list is empty, return the entire list as the last subset of the powerset *)
+  | h::t -> [h]::powerset t 

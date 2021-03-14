@@ -50,15 +50,22 @@ in
 keep (j - i) (remove i lst);;
 
 (* 1.5 *)
-(* Partitions a list into equivalnce classes according to the equivalance functino, equivalenceFunc *)
+(* Partitions a list into equivalnce classes according to the equivalance function, equivalenceFunc *)
 let rec equivs equivalenceFunc lst = 
-  match lst with 
-  | [] -> []
-  | _::[] -> []
-  | a::(b::_ as t) -> if equivalenceFunc a b = true then [a; b]::equivs equivalenceFunc t
-  else [a]::[b]::equivs equivalenceFunc t;;
+  let equals = [List.hd lst]
+  and 
+  notEquals = []
+in 
+(* This helper function compares an element with every other element in lst, and puts them either into a notEquals list or an equals list. *)
+let rec compare elementToCompare restOflst =
+  match restOflst with
+  |[] -> []
+  | h::t -> if equivalenceFunc (elementToCompare) (h) = true then h::equals else h::notEquals
+  @ compare (elementToCompare) (List.tl restOflst)
+in
+compare (List.hd lst) (List.tl lst) :: equivs (equivalenceFunc) (notEquals);;
 
-(* 1.6 *)
+  (* 1.6 *)
 (* Finds two prime numbers that sum up to a given even integer a returns them as a pair in non-decreasing order. *)
 let goldbachpair evenInt = 
   let rec is_prime numToCheck divisor = 
@@ -93,7 +100,15 @@ Each tuple in the input list consists of the coefficient and the exponent. *)
 
 (* 1.10 *)
 (* Takes a list and returns a list of lists that represnts the powerset of the input list. *)
-let rec powerset lst = 
-  match lst with
-  | [] -> lst::[] (* once the list is empty, return the entire list as the last subset of the powerset *)
-  | h::t -> [h]::powerset t 
+let powerset lst = 
+  let rec helperMap f lst = 
+    match lst with
+    | [] -> []
+    | h::t -> (f h) :: (helperMap f t) 
+  in 
+  let rec to_pwr_set lst = 
+    match lst with 
+    | [] -> [[]]
+    | h::t -> let rest = (to_pwr_set t) in rest @ (helperMap (fun (element) -> h::element) rest)
+  in
+  to_pwr_set lst;; 

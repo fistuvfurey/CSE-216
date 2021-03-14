@@ -1,5 +1,5 @@
 (* Aidan Furey, ID: 112622264, HW1 *)
-(* 1  Data Types *)
+(* 2  Data Types *)
 
 (* 2.1 *)
 (* Let us define a language for expressions in Boolean logic: *)

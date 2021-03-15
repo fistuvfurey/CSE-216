@@ -97,6 +97,19 @@ let rec pairwisefilter cmp lst =
 (* 1.9 *)
 (* Takes a list of tuples and returns a polynomial function corresponding to that list. 
 Each tuple in the input list consists of the coefficient and the exponent. *)
+let polynomial lst = 
+  let first = List.hd lst
+  and second = List.hd (List.tl lst)
+  and third = List.hd (List.tl (List.tl lst))
+in
+  let coeff1 = fst first
+  and exp1 = snd first
+  and coeff2 = fst second
+  and exp2 = snd second
+  and coeff3 = fst third 
+  and exp3 = snd third
+in 
+fun x -> coeff1 * (pow x exp1) + coeff2 * (pow x exp2) + coeff3 * (pow x exp3);;
 
 (* 1.10 *)
 (* Takes a list and returns a list of lists that represnts the powerset of the input list. *)

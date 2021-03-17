@@ -37,17 +37,17 @@ let rec remove_if lst predicate =
 (* 1.4 *)
 (* Takes list and two indicies, i and j, and extracts a slice of the list containing the elements from the ith (inclusive)
 to the jth (not inclusive) positions of the original list. *)
-let slice lst i j =
-  if i > j then [] else
-  let rec keep n = function
+let slice original_lst i j = 
+  let rec slice_beginning counter k lst = 
+    if counter < k then slice_beginning (counter + 1) k (List.tl lst)
+    else lst
+  in 
+  let rec slice_end counter k lst = 
+    match lst with 
     | [] -> []
-    | h::t -> if n = 0 then [] else h::keep (n-1) t
-in 
-let rec remove n = function
-  | [] -> []
-  | h::t as elementsToKeep -> if n = 0 then elementsToKeep else remove (n-1) t 
-in
-keep (j - i) (remove i lst);;
+    | h::t -> if counter < k then h::(slice_end (counter + 1) (k) (t)) else []
+  in
+  slice_end 0 (j-i) (slice_beginning 0 i original_lst);;
 
 (* 1.5 *)
 (* Partitions a list into equivalnce classes according to the equivalance function, equivalenceFunc *)

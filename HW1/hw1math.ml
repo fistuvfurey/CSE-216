@@ -3,11 +3,14 @@
 
 (* 2.2 *)
 (* Tree representing an arithmetic expression *)
-type expr =
+
+type expr = 
     | Const of int
     | Var of string
-    | Plus of expr * expr
-    | Mult of expr * expr
-    | Minus of expr * expr
-    | Div of expr * expr
-    
+    | Plus of node
+    | Minus of node
+    | Mult of node
+    | Div of node
+    and node = 
+        { arg1: expr;
+        arg2: expr }

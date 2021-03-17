@@ -92,7 +92,7 @@ let rec pairwisefilter cmp lst =
   match lst with
   | a::b::(_ as t) -> (cmp a b)::pairwisefilter cmp t
   | [] -> []
-  | (_ as last)::[] -> [last]
+  | (_ as last)::[] -> [last];;
 
 (* 1.9 *)
 (* Takes a list of tuples and returns a polynomial function corresponding to that list. 

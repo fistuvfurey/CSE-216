@@ -12,7 +12,7 @@ type expr =
     | Div of node
     and node = 
         { arg1: expr;
-        arg2: expr }
+        arg2: expr };;
 
 let rec evaluate arithmetic_expression = 
     match arithmetic_expression with 
@@ -21,4 +21,4 @@ let rec evaluate arithmetic_expression =
     | Plus node -> evaluate node.arg1 + evaluate node.arg2
     | Minus node -> evaluate node.arg1 - evaluate node.arg2
     | Mult node -> evaluate node.arg1 * evaluate node.arg2
-    | Div node -> evaluate node.arg1 / evaluate node.arg2
+    | Div node -> evaluate node.arg1 / evaluate node.arg2;;
